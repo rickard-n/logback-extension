@@ -1,0 +1,56 @@
+ext {
+	logbackVersion = '0.9.30'
+	mockitoVersion = '1.9.5'
+	junitVersion = '4.11'
+
+	libraries = [
+    		logback: [
+             	[group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion],
+                [group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion],
+                [group: 'ch.qos.logback', name: 'logback-access', version: logbackVersion],
+    		],
+    		test: [
+				[group: 'junit', name: 'junit', version: junitVersion],
+				[group: 'org.mockito', name: 'mockito-core', version: mockitoVersion],
+				[group: 'org.mockito', name: 'mockito-all', version: mockitoVersion],
+            ]
+    ]
+}
+
+allprojects {
+	apply plugin: 'java'
+	apply plugin: 'idea'
+
+	sourceCompatibility= 1.6
+	version = '1.0'
+
+	configurations {
+
+	}
+
+	idea {
+		module {
+
+		}
+	}
+
+	repositories {
+			mavenLocal()
+			mavenCentral()
+	}
+
+	dependencies {
+		compile libraries.logback
+		testCompile libraries.test
+	}
+
+	test {
+		testLogging {
+			events "failed", "standard_out"
+		}
+    }
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '1.4'
+}
