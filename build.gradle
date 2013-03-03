@@ -41,7 +41,10 @@ allprojects {
 
 	dependencies {
 		compile libraries.logback
+		compile 'org.apache.tomcat:catalina:6.0.20'
 		testCompile libraries.test
+		testCompile 'org.apache.tomcat:coyote:6.0.20'
+		testCompile 'org.springframework:spring-test:3.2.1.RELEASE'
 	}
 
 	test {
