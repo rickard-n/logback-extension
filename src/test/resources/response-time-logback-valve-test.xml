@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <property name="PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS,Europe/Stockholm} %i{X-Cluster-Client-Ip} %clientHost %statusCode %b %D '%requestURL' '%header{Referer}' '%i{User-Agent}'" />
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>/tmp/access.log</file>
+
+        <encoder class="se.svt.logback.access.pattern.PatternWithLayoutEncoder">
+            <layout class="se.svt.logback.access.ResponseTimePatternLayout"/>
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender-ref ref="FILE"/>
+</configuration>

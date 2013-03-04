@@ -25,12 +25,14 @@ allprojects {
 	version = '1.0'
 
 	configurations {
-
-	}
+      provided
+      provided.extendsFrom(compile)
+    }
 
 	idea {
 		module {
-
+			scopes.PROVIDED.plus += configurations.provided
+        	downloadSources = true
 		}
 	}
 
@@ -45,6 +47,7 @@ allprojects {
 		testCompile libraries.test
 		testCompile 'org.apache.tomcat:coyote:6.0.20'
 		testCompile 'org.springframework:spring-test:3.2.1.RELEASE'
+		testCompile 'com.google.guava:guava:14.0'
 	}
 
 	test {

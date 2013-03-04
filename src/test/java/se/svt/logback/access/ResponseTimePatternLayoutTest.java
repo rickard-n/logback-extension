@@ -23,7 +23,7 @@ public class ResponseTimePatternLayoutTest {
 	public static final String SIMPLE_LOGGING_PATTERN = "pattern: %D";
 	public static final String SIMPLE_MESSAGE_REGEX = "pattern: \\d+\\n";
 	public static final String COMPLEX_LOGGING_PATTERN = "%date{yyyy-MM-dd HH:mm:ss.SSS,Europe/Stockholm} %i{X-Cluster-Client-Ip} %clientHost %statusCode %b %D '%requestURL' '%header{Referer}' '%i{User-Agent}'";
-	private static final String COMPLEX_MESSAGE_REGEX_PATTERN = "\\d{4}(-\\d{2}){2} \\d{2}(:\\d{2}){2}.\\d{3} %s %s %d %d \\d+ '%s %s %s' '%s' '%s'%n";
+	public static final String COMPLEX_MESSAGE_REGEX_PATTERN = "\\d{4}(-\\d{2}){2} \\d{2}(:\\d{2}){2}.\\d{3} %s %s %d %d \\d+ '%s %s %s' '%s' '%s'%n";
 	private ResponseTimePatternLayout responseTimePatternLayout;
 	public static final String CLIENT_IP = "10.20.101.42";
 	public static final String REFERER_URL = "refererUrl";
