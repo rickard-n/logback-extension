@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+    <property name="PATTERN" value="%date{yyyy-MM-dd HH:mm:ss.SSS,Europe/Stockholm} %i{X-Cluster-Client-Ip} %clientHost %statusCode %b %D '%requestURL' '%header{Referer}' '%i{User-Agent}'" />
+
+    <appender name="SYSLOG" class="se.svt.logback.access.net.AccessSyslogAppender">
+        <syslogHost>127.0.0.1</syslogHost>
+        <port>1234</port>
+        <facility>LOCAL0</facility>
+        <suffixPattern>${PATTERN}</suffixPattern>
+    </appender>
+
+    <appender-ref ref="SYSLOG"/>
+</configuration>

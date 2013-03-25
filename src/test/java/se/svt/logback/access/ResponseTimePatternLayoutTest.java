@@ -5,7 +5,6 @@ import ch.qos.logback.access.tomcat.TomcatServerAdapter;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.connector.Response;
 import org.apache.coyote.http11.filters.ChunkedOutputFilter;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -18,7 +17,7 @@ import java.io.OutputStream;
 
 import static junit.framework.Assert.assertNull;
 
-public class ResponseTimePatternLayoutTest {
+public class ResponseTimePatternLayoutTest extends ResponseTimeLogbackValveTest {
 
 	public static final String SIMPLE_LOGGING_PATTERN = "pattern: %D";
 	public static final String SIMPLE_MESSAGE_REGEX = "pattern: \\d+\\n";
@@ -103,10 +102,5 @@ public class ResponseTimePatternLayoutTest {
 		httpRequest.setMethod(METHOD);
 		httpRequest.setProtocol(PROTOCOL);
 		return httpRequest;
-	}
-
-	private void checkRegexMatch(String s, String regex) {
-		Assert.assertTrue("The string [" + s + "] did not match regex [" + regex + "]", s
-				.matches(regex));
 	}
 }
