@@ -20,9 +20,12 @@ ext {
 allprojects {
 	apply plugin: 'java'
 	apply plugin: 'idea'
+    apply plugin: 'maven'
 
-	sourceCompatibility= 1.6
-	version = '1.0'
+
+    sourceCompatibility= 1.6
+    group = 'se.svt.logback'
+    version = '1.0'
 
 	configurations {
       provided
@@ -43,7 +46,7 @@ allprojects {
 
 	dependencies {
 		compile libraries.logback
-		compile 'org.apache.tomcat:catalina:6.0.20'
+        provided 'org.apache.tomcat:catalina:6.0.20'
 		testCompile libraries.test
 		testCompile 'org.apache.tomcat:coyote:6.0.20'
 		testCompile 'org.springframework:spring-test:3.2.1.RELEASE'
@@ -54,6 +57,17 @@ allprojects {
 		testLogging {
 			events "failed", "standard_out"
 		}
+    }
+
+    sourceSets {
+        main {
+            compileClasspath += configurations.provided
+        }
+
+        test {
+            compileClasspath += configurations.provided
+            runtimeClasspath += configurations.provided
+        }
     }
 }
 
