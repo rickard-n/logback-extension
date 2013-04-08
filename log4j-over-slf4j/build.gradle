@@ -1,0 +1,51 @@
+def slf4jVersion='1.7.2'
+def minorVersion='1'
+
+version="$slf4jVersion.$minorVersion"
+
+
+
+dependencies {
+    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: slf4jVersion
+}
+
+task cleanResources() {
+    delete 'build/resources/main'
+}
+
+task copyTask(type: Copy, dependsOn:'cleanResources' ) {
+
+    FileCollection source = files(fileTree(dir:'build/classes/main/', includes: ['**/*.class']))
+    List<String> relativeSource = new ArrayList<String>()
+    source.each {
+        File file ->
+            def replace = file.absolutePath.replace(project.buildDir.absolutePath + "/classes/main/", "")
+            relativeSource.add(replace)
+    }
+
+    from configurations.runtime.collect {
+        it.isDirectory() ? it : zipTree(it).matching{
+            exclude{
+                RelativePath path = it.getRelativePath()
+                if(relativeSource.contains(path.pathString)) {
+                    println "Override class " + path.pathString
+                    return true;
+                }
+                return false
+            }
+        }
+
+    }
+    into 'build/resources/main'
+}
+
+processResources() {
+    dependsOn copyTask
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = 'org.slf4j'
+    }
+}
+

@@ -2,6 +2,7 @@ ext {
 	logbackVersion = '0.9.30'
 	mockitoVersion = '1.9.5'
 	junitVersion = '4.11'
+    tomcatVersion = '6.0.20'
 
 	libraries = [
     		logback: [
@@ -46,11 +47,11 @@ allprojects {
 
 	dependencies {
 		compile libraries.logback
-        provided 'org.apache.tomcat:catalina:6.0.20'
+        provided group: 'org.apache.tomcat', name: 'catalina', version: tomcatVersion
 		testCompile libraries.test
-		testCompile 'org.apache.tomcat:coyote:6.0.20'
-		testCompile 'org.springframework:spring-test:3.2.1.RELEASE'
-		testCompile 'com.google.guava:guava:14.0'
+		testCompile group: 'org.apache.tomcat', name: 'coyote', version: tomcatVersion
+		testCompile group: 'org.springframework', name: 'spring-test', version: '3.2.1.RELEASE'
+		testCompile group:'com.google.guava', name: 'guava', version: '14.0'
 	}
 
 	test {
@@ -68,8 +69,22 @@ allprojects {
             compileClasspath += configurations.provided
             runtimeClasspath += configurations.provided
         }
+
+    }
+
+    // custom tasks for creating source/javadoc jars
+    task sourcesJar(type: Jar, dependsOn:classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    // add javadoc/source jar tasks as artifacts
+    artifacts {
+        archives sourcesJar
     }
 }
+
+
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '1.4'
