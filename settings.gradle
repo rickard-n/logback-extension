@@ -1,2 +1,2 @@
-include 'log4j-over-slf4j'
+include 'log4j-over-slf4j','logback-admin'
 

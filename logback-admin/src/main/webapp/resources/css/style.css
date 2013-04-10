@@ -1,0 +1,13 @@
+table.log4j {width: 800px; border-color: #000; border-width: 1px; border-style: solid;}
+table.log4j td {width: 4em; text-align: center; font-family:sans-serif;font-size:small; }
+table.log4j th {text-align: left; font-family:sans-serif;font-size:x-small; }
+table.log4j tr:hover {background: #e5f3ff;}
+table.log4j div {width: 100%}
+tr.all div.all { background: #99ccff; border: 1px solid black;font-family:sans-serif;font-size:small;}
+tr.trace div.trace { background: #99ccff; border: 1px solid black;font-family:sans-serif;font-size:small;}
+tr.debug div.debug { background: #99ccff; border: 1px solid black;font-family:sans-serif;font-size:small;}
+tr.info div.info { background: #99ccff;border: 1px solid black;font-family:sans-serif;font-size:small;}
+tr.warn div.warn { background: #99ccff;border: 1px solid black;font-family:sans-serif;font-size:small;}
+tr.error div.error { background: #99ccff;border: 1px solid black;font-family:sans-serif;font-size:small;}
+tr.off div.off { background: #99ccff;border: 1px solid black;font-family:sans-serif;font-size:small;}
+table.log4j a {text-decoration:none; color:black;}

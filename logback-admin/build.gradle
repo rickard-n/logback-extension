@@ -1,0 +1,46 @@
+apply plugin: 'war'
+
+def jqueryVersion = '1.8.2'
+version = '1.0'
+
+dependencies {
+    compile group: 'javax.servlet', name: 'jstl', version: '1.1.2'
+    compile group: 'taglibs', name: 'standard', version: '1.1.2'
+    compile group: 'org.springframework', name: 'spring-web', version: springVersion
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
+    compile group: 'org.springframework', name: 'spring-beans', version: springVersion
+    compile group: 'org.springframework', name: 'spring-context', version: springVersion
+    provided libraries.logback
+}
+
+task copyToWebapps(type: Copy, dependsOn: 'war') {
+    from(file("${buildDir}/libs/${project.name}-${version}.war"))
+    rename("-${version}", "")
+    into("/opt/svt/escenic-tomcat/apache-tomcat/webapps")
+}
+
+/**
+ * Add jQuery to project
+ */
+
+repositories {
+    mavenRepo (name: "JQuery", url: "http://code.jquery.com") {
+        pattern = "[module]-[revision](.[classifier]).[ext]"
+    }
+}
+configurations {
+    js
+}
+dependencies {
+    js group: 'jquery', name: 'jquery', version: jqueryVersion, classifier: 'min', ext: "js"
+}
+task fetchJs(type: Copy) {
+    from configurations.js
+    into "$buildDir/js/ext/"
+    rename{ String fileName -> fileName.replace('-min.js', '.min.js') }
+}
+
+war {
+    dependsOn fetchJs
+    from "$buildDir/js"
+}
